@@ -4,7 +4,7 @@ import * as Tone from "tone";
 const NOTE_NAMES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 const NOTE_NAMES_FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
-const STORAGE_KEY = "midi_practice_trainer_settings_v7";
+const STORAGE_KEY = "midi_practice_trainer_settings_v8";
 
 const SCALE_LIBRARY = {
   major: {
@@ -149,50 +149,39 @@ const CHORD_LIBRARY = [
   { suffix: "m", intervals: [0, 3, 7], aliases: ["min"], priority: 100, core: [0, 3, 7] },
   { suffix: "dim", intervals: [0, 3, 6], aliases: [], priority: 98, core: [0, 3, 6] },
   { suffix: "aug", intervals: [0, 4, 8], aliases: ["+"], priority: 98, core: [0, 4, 8] },
-
   { suffix: "sus2", intervals: [0, 2, 7], aliases: [], priority: 92, core: [0, 2, 7] },
   { suffix: "sus4", intervals: [0, 5, 7], aliases: ["sus"], priority: 92, core: [0, 5, 7] },
-
   { suffix: "6", intervals: [0, 4, 7, 9], aliases: [], priority: 94, core: [0, 4, 9] },
   { suffix: "m6", intervals: [0, 3, 7, 9], aliases: [], priority: 94, core: [0, 3, 9] },
-
   { suffix: "maj7", intervals: [0, 4, 7, 11], aliases: ["M7"], priority: 110, core: [0, 4, 11] },
   { suffix: "7", intervals: [0, 4, 7, 10], aliases: ["dom7"], priority: 110, core: [0, 4, 10] },
   { suffix: "m7", intervals: [0, 3, 7, 10], aliases: [], priority: 108, core: [0, 3, 10] },
   { suffix: "mMaj7", intervals: [0, 3, 7, 11], aliases: ["mM7"], priority: 108, core: [0, 3, 11] },
   { suffix: "dim7", intervals: [0, 3, 6, 9], aliases: [], priority: 106, core: [0, 3, 6, 9] },
   { suffix: "m7b5", intervals: [0, 3, 6, 10], aliases: ["ø7"], priority: 106, core: [0, 3, 6, 10] },
-
   { suffix: "add9", intervals: [0, 2, 4, 7], aliases: [], priority: 96, core: [0, 2, 4] },
   { suffix: "madd9", intervals: [0, 2, 3, 7], aliases: [], priority: 96, core: [0, 2, 3] },
   { suffix: "add11", intervals: [0, 4, 5, 7], aliases: [], priority: 94, core: [0, 4, 5] },
   { suffix: "madd11", intervals: [0, 3, 5, 7], aliases: [], priority: 94, core: [0, 3, 5] },
   { suffix: "6add9", intervals: [0, 2, 4, 7, 9], aliases: [], priority: 102, core: [0, 2, 4, 9] },
-
   { suffix: "9", intervals: [0, 2, 4, 7, 10], aliases: [], priority: 114, core: [0, 4, 10, 2] },
   { suffix: "m9", intervals: [0, 2, 3, 7, 10], aliases: [], priority: 112, core: [0, 3, 10, 2] },
   { suffix: "maj9", intervals: [0, 2, 4, 7, 11], aliases: ["M9"], priority: 114, core: [0, 4, 11, 2] },
-
   { suffix: "11", intervals: [0, 2, 4, 5, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 5] },
   { suffix: "m11", intervals: [0, 2, 3, 5, 7, 10], aliases: [], priority: 114, core: [0, 3, 10, 5] },
   { suffix: "maj11", intervals: [0, 2, 4, 5, 7, 11], aliases: ["M11"], priority: 116, core: [0, 4, 11, 5] },
-
   { suffix: "13", intervals: [0, 2, 4, 7, 9, 10], aliases: [], priority: 118, core: [0, 4, 10, 9] },
   { suffix: "m13", intervals: [0, 2, 3, 7, 9, 10], aliases: [], priority: 116, core: [0, 3, 10, 9] },
   { suffix: "maj13", intervals: [0, 2, 4, 7, 9, 11], aliases: ["M13"], priority: 118, core: [0, 4, 11, 9] },
-
   { suffix: "7sus4", intervals: [0, 5, 7, 10], aliases: [], priority: 108, core: [0, 5, 10] },
   { suffix: "9sus4", intervals: [0, 2, 5, 7, 10], aliases: [], priority: 112, core: [0, 5, 10, 2] },
-
   { suffix: "maj7#5", intervals: [0, 4, 8, 11], aliases: [], priority: 110, core: [0, 4, 8, 11] },
   { suffix: "7#5", intervals: [0, 4, 8, 10], aliases: ["aug7"], priority: 110, core: [0, 4, 8, 10] },
   { suffix: "7b5", intervals: [0, 4, 6, 10], aliases: [], priority: 110, core: [0, 4, 6, 10] },
-
   { suffix: "7b9", intervals: [0, 1, 4, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 1] },
   { suffix: "7#9", intervals: [0, 3, 4, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 3] },
   { suffix: "7#11", intervals: [0, 2, 4, 6, 7, 10], aliases: [], priority: 118, core: [0, 4, 10, 6] },
   { suffix: "7b13", intervals: [0, 2, 4, 7, 8, 10], aliases: [], priority: 118, core: [0, 4, 10, 8] },
-
   { suffix: "mMaj9", intervals: [0, 2, 3, 7, 11], aliases: [], priority: 114, core: [0, 3, 11, 2] },
   { suffix: "m6add9", intervals: [0, 2, 3, 7, 9], aliases: [], priority: 102, core: [0, 3, 9, 2] },
 ];
@@ -215,6 +204,7 @@ const MODES = {
   chord: "chord",
   scale: "scale",
   chordExercise: "chordExercise",
+  combined: "combined",
 };
 
 const DIRECTIONS = {
@@ -349,7 +339,8 @@ function detectChord(activeMidiNotes) {
       alternates: [],
       rootPitchClass: null,
       bassLabel: null,
-      quality: null,
+      suffix: null,
+      preferFlats: false,
     };
   }
 
@@ -394,7 +385,8 @@ function detectChord(activeMidiNotes) {
       alternates: [],
       rootPitchClass: activeMidiNotes.length ? midiToPitchClass(Math.min(...activeMidiNotes)) : null,
       bassLabel: bassMidi !== null ? midiToScientificNote(bassMidi) : null,
-      quality: null,
+      suffix: null,
+      preferFlats: false,
     };
   }
 
@@ -407,20 +399,20 @@ function detectChord(activeMidiNotes) {
     const sharpName = formatChordName(match.rootPitchClass, match.suffix, false);
     const flatName = formatChordName(match.rootPitchClass, match.suffix, true);
 
-    [sharpName, flatName].forEach((name) => {
-      if (!seen.has(name)) {
-        seen.add(name);
-        unique.push({
-          name,
-          rootPitchClass: match.rootPitchClass,
-        });
+    [
+      { name: sharpName, preferFlats: false, rootPitchClass: match.rootPitchClass, suffix: match.suffix },
+      { name: flatName, preferFlats: true, rootPitchClass: match.rootPitchClass, suffix: match.suffix },
+    ].forEach((item) => {
+      if (!seen.has(item.name)) {
+        seen.add(item.name);
+        unique.push(item);
       }
     });
   });
 
   const best = unique[0];
-  const bassName = bassMidi !== null ? midiToNoteName(bassMidi) : null;
-  const rootName = best ? midiToNoteName(best.rootPitchClass) : null;
+  const bassName = bassMidi !== null ? midiToNoteName(bassMidi, best?.preferFlats) : null;
+  const rootName = best ? midiToNoteName(best.rootPitchClass, best.preferFlats) : null;
   const slashNeeded = bassName && rootName && bassName !== rootName;
   const finalLabel = slashNeeded ? `${best.name}/${bassName}` : best.name;
 
@@ -428,8 +420,9 @@ function detectChord(activeMidiNotes) {
     label: finalLabel || "Unknown voicing",
     alternates: unique.slice(1, 5).map((item) => item.name),
     rootPitchClass: best?.rootPitchClass ?? null,
-    bassLabel: bassMidi !== null ? midiToScientificNote(bassMidi) : null,
-    quality: best?.name ?? null,
+    bassLabel: bassMidi !== null ? midiToScientificNote(bassMidi, best?.preferFlats) : null,
+    suffix: best?.suffix ?? null,
+    preferFlats: best?.preferFlats ?? false,
   };
 }
 
@@ -512,6 +505,120 @@ function getRecommendation(accuracy) {
   return "Slow it down and focus on root, shape, and even timing.";
 }
 
+function pitchClassToName(pitchClass, preferFlats = false) {
+  return (preferFlats ? NOTE_NAMES_FLAT : NOTE_NAMES_SHARP)[pitchClass];
+}
+
+function getScaleRecommendationsForChord(chord) {
+  if (chord.rootPitchClass === null || !chord.suffix) return [];
+
+  const rootPitchClass = chord.rootPitchClass;
+  const add = (scaleKey, reason) => ({
+    id: `${rootPitchClass}-${scaleKey}`,
+    scaleKey,
+    label: `${pitchClassToName(rootPitchClass, chord.preferFlats)} ${SCALE_LIBRARY[scaleKey].label}`,
+    rootPitchClass,
+    reason,
+  });
+
+  const suffix = chord.suffix;
+  const results = [];
+
+  if (suffix === "") {
+    results.push(add("major", "Stable major sound"));
+    results.push(add("lydian", "Brighter major color"));
+    results.push(add("majorPentatonic", "Simple consonant option"));
+  } else if (suffix === "m") {
+    results.push(add("dorian", "Flexible minor sound"));
+    results.push(add("aeolian", "Natural minor option"));
+    results.push(add("minorPentatonic", "Strong practical choice"));
+  } else if (suffix === "maj7" || suffix === "maj9" || suffix === "maj11" || suffix === "maj13") {
+    results.push(add("lydian", "Strong jazz major color"));
+    results.push(add("major", "Diatonic major option"));
+    results.push(add("majorBebop", "Line oriented major option"));
+  } else if (
+    suffix === "m7" ||
+    suffix === "m9" ||
+    suffix === "m11" ||
+    suffix === "m13" ||
+    suffix === "m6" ||
+    suffix === "m6add9"
+  ) {
+    results.push(add("dorian", "Common minor 7 choice"));
+    results.push(add("aeolian", "Darker minor option"));
+    results.push(add("minorPentatonic", "Simple practical option"));
+  } else if (
+    suffix === "7" ||
+    suffix === "9" ||
+    suffix === "11" ||
+    suffix === "13" ||
+    suffix === "7sus4" ||
+    suffix === "9sus4"
+  ) {
+    results.push(add("mixolydian", "Default dominant option"));
+    results.push(add("lydianDominant", "Brighter dominant color"));
+    results.push(add("dominantBebop", "Line oriented dominant option"));
+    results.push(add("blues", "Blues vocabulary"));
+  } else if (
+    suffix === "7b9" ||
+    suffix === "7#9" ||
+    suffix === "7b5" ||
+    suffix === "7#5" ||
+    suffix === "7#11" ||
+    suffix === "7b13"
+  ) {
+    results.push(add("altered", "Altered dominant tension"));
+    results.push(add("diminishedHalfWhole", "Dominant diminished option"));
+    results.push(add("lydianDominant", "More open altered dominant option"));
+  } else if (suffix === "m7b5") {
+    results.push(add("locrian", "Classic half diminished sound"));
+    results.push(add("dorian", "Softer minor alternative"));
+  } else if (suffix === "dim7") {
+    results.push(add("diminishedWholeHalf", "Symmetrical diminished option"));
+  } else if (suffix === "dim") {
+    results.push(add("locrian", "Diminished triad context"));
+    results.push(add("diminishedWholeHalf", "Colorful diminished option"));
+  } else if (suffix === "aug" || suffix === "maj7#5") {
+    results.push(add("wholeTone", "Classic augmented sound"));
+    results.push(add("lydian", "Bright major alternative"));
+  } else if (suffix === "sus2" || suffix === "sus4" || suffix === "add9" || suffix === "add11" || suffix === "6" || suffix === "6add9") {
+    results.push(add("major", "Stable broad choice"));
+    results.push(add("mixolydian", "Open suspended color"));
+    results.push(add("majorPentatonic", "Simple consonant option"));
+  } else if (suffix === "madd9" || suffix === "madd11" || suffix === "mMaj7" || suffix === "mMaj9") {
+    results.push(add("melodicMinor", "Melodic minor color"));
+    results.push(add("dorian", "Safer minor alternative"));
+  } else {
+    results.push(add("major", "General fallback"));
+  }
+
+  const deduped = [];
+  const seen = new Set();
+  for (const item of results) {
+    if (!seen.has(item.scaleKey)) {
+      seen.add(item.scaleKey);
+      deduped.push(item);
+    }
+  }
+  return deduped.slice(0, 4);
+}
+
+function buildNearbyGuideNotesForRecommendation(rootPitchClass, scaleKey, centerMidi = 60, spanOctaves = 3) {
+  if (rootPitchClass === null || !scaleKey) return [];
+  const centerOctaveRoot = centerMidi - midiToPitchClass(centerMidi) + rootPitchClass;
+  const startRoot = centerOctaveRoot - 12;
+  const notes = [];
+
+  for (let octave = 0; octave < spanOctaves; octave += 1) {
+    const rootMidi = startRoot + octave * 12;
+    SCALE_LIBRARY[scaleKey].intervals.forEach((interval) => {
+      notes.push(rootMidi + interval);
+    });
+  }
+
+  return [...new Set(notes)].filter((m) => m >= 36 && m <= 96).sort((a, b) => a - b);
+}
+
 export default function App() {
   const stored = readStoredSettings();
 
@@ -566,7 +673,14 @@ export default function App() {
   const [previewActive, setPreviewActive] = useState(false);
   const [previewPulseNote, setPreviewPulseNote] = useState(null);
   const [previewExpectedNotes, setPreviewExpectedNotes] = useState([]);
-  const [showGuideNotes, setShowGuideNotes] = useState(false);
+  const [showGuideNotes, setShowGuideNotes] = useState(stored?.showGuideNotes ?? true);
+
+  const [loopBpm, setLoopBpm] = useState(stored?.loopBpm ?? 90);
+  const [loopOctaves, setLoopOctaves] = useState(stored?.loopOctaves ?? 2);
+  const [loopDirection, setLoopDirection] = useState(stored?.loopDirection || DIRECTIONS.upDown);
+  const [isScaleLoopRunning, setIsScaleLoopRunning] = useState(false);
+  const [loopStepIndex, setLoopStepIndex] = useState(0);
+  const [useRecommendedScale, setUseRecommendedScale] = useState(stored?.useRecommendedScale ?? true);
 
   const synthRef = useRef(null);
   const accentSynthRef = useRef(null);
@@ -593,9 +707,24 @@ export default function App() {
   const keyboardScrollRef = useRef(null);
   const autoAudioInitRef = useRef(false);
 
+  const scaleLoopTimeoutRef = useRef(null);
+  const scaleLoopSequenceRef = useRef([]);
+  const scaleLoopIndexRef = useRef(0);
+
   const chord = useMemo(() => detectChord(soundingNotes), [soundingNotes]);
   const keyboardData = useMemo(() => buildKeyboardRange(36, 96), []);
   const scaleInfo = SCALE_LIBRARY[selectedScale];
+  const recommendedScales = useMemo(() => getScaleRecommendationsForChord(chord), [chord]);
+
+  const activeRecommendedScaleKey = useMemo(() => {
+    if (!recommendedScales.length) return null;
+    return recommendedScales[0].scaleKey;
+  }, [recommendedScales]);
+
+  const activeRecommendedRootName = useMemo(() => {
+    if (chord.rootPitchClass === null) return null;
+    return NOTE_NAMES_SHARP[chord.rootPitchClass];
+  }, [chord.rootPitchClass]);
 
   const expectedScaleDegrees = useMemo(
     () => buildExpectedScaleDegrees(selectedScale, octaves, scaleDirection),
@@ -617,11 +746,27 @@ export default function App() {
     [selectedRoot, selectedChordExercise]
   );
 
+  const recommendationGuideNotes = useMemo(() => {
+    if (!showGuideNotes || chord.rootPitchClass === null || !activeRecommendedScaleKey) return [];
+    const centerMidi =
+      soundingNotes.length > 0
+        ? Math.round(soundingNotes.reduce((a, b) => a + b, 0) / soundingNotes.length)
+        : getRootPreviewMidi(NOTE_NAMES_SHARP[chord.rootPitchClass]);
+    return buildNearbyGuideNotesForRecommendation(
+      chord.rootPitchClass,
+      activeRecommendedScaleKey,
+      centerMidi,
+      3
+    );
+  }, [showGuideNotes, chord.rootPitchClass, activeRecommendedScaleKey, soundingNotes]);
+
   const activeGuideNotes =
     mode === MODES.scale
       ? scalePreviewNotes
       : mode === MODES.chordExercise
       ? chordPreviewNotes
+      : mode === MODES.chord || mode === MODES.combined
+      ? recommendationGuideNotes
       : [];
 
   const displayExpectedNotes = showGuideNotes
@@ -629,6 +774,16 @@ export default function App() {
       ? previewExpectedNotes
       : activeGuideNotes
     : [];
+
+  const activeLoopRootName =
+    useRecommendedScale && activeRecommendedRootName ? activeRecommendedRootName : selectedRoot;
+
+  const activeLoopScaleKey =
+    useRecommendedScale && activeRecommendedScaleKey ? activeRecommendedScaleKey : selectedScale;
+
+  const loopPreviewNotes = useMemo(() => {
+    return buildScalePreviewNotes(activeLoopRootName, activeLoopScaleKey, loopOctaves, loopDirection);
+  }, [activeLoopRootName, activeLoopScaleKey, loopOctaves, loopDirection]);
 
   const accuracy = attempts > 0 ? Math.round((correctNotesCount / attempts) * 100) : 0;
   const recommendation = getRecommendation(accuracy);
@@ -655,6 +810,11 @@ export default function App() {
           countInBeats,
           octaves,
           scaleDirection,
+          loopBpm,
+          loopOctaves,
+          loopDirection,
+          showGuideNotes,
+          useRecommendedScale,
         })
       );
     } catch {
@@ -678,6 +838,11 @@ export default function App() {
     countInBeats,
     octaves,
     scaleDirection,
+    loopBpm,
+    loopOctaves,
+    loopDirection,
+    showGuideNotes,
+    useRecommendedScale,
   ]);
 
   useEffect(() => {
@@ -689,6 +854,7 @@ export default function App() {
       stopMetronome();
       stopExerciseInterval();
       clearPreviewTimeouts();
+      stopScaleLooper();
       if (synthRef.current) synthRef.current.dispose();
       if (accentSynthRef.current) accentSynthRef.current.dispose();
       if (clickSynthRef.current) clickSynthRef.current.dispose();
@@ -717,6 +883,12 @@ export default function App() {
       startStandaloneMetronome();
     }
   }, [metronomeBpm, beatsPerBar, accentPattern]);
+
+  useEffect(() => {
+    if (isScaleLoopRunning) {
+      restartScaleLooper();
+    }
+  }, [loopBpm, loopOctaves, loopDirection, selectedRoot, selectedScale, activeRecommendedScaleKey, activeRecommendedRootName, useRecommendedScale]);
 
   useEffect(() => {
     const tryStartAudio = async () => {
@@ -856,7 +1028,7 @@ export default function App() {
             synthRef.current.triggerAttack(noteName, undefined, Math.max(0.15, velocity / 127));
           }
 
-          if (mode === MODES.scale) {
+          if (mode === MODES.scale || mode === MODES.combined) {
             handleScaleExerciseNote(note);
           }
 
@@ -908,7 +1080,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    setShowGuideNotes(false);
     setPreviewExpectedNotes([]);
     setPreviewPulseNote(null);
     clearPreviewTimeouts();
@@ -1100,7 +1271,7 @@ export default function App() {
     setIsExerciseRunning(true);
     setExerciseStatus(`Count in ${countInBeats}`);
     setExerciseFeedback(
-      mode === MODES.scale
+      mode === MODES.scale || mode === MODES.combined
         ? `Play ${selectedRoot} ${scaleInfo.label}`
         : `Play ${selectedRoot} ${currentChordExercise().label}`
     );
@@ -1220,15 +1391,21 @@ export default function App() {
   }
 
   async function handlePreviewExercise() {
-    if (mode === MODES.chord) return;
-
     if (!audioEnabled) {
       await handleEnableAudioManually();
     }
 
     clearPreviewTimeouts();
 
-    const notes = mode === MODES.scale ? scalePreviewNotes : chordPreviewNotes;
+    let notes = [];
+    if (mode === MODES.scale || mode === MODES.combined) {
+      notes = scalePreviewNotes;
+    } else if (mode === MODES.chordExercise) {
+      notes = chordPreviewNotes;
+    } else {
+      notes = loopPreviewNotes;
+    }
+
     setPreviewExpectedNotes(notes);
     setShowGuideNotes(true);
     setPreviewActive(true);
@@ -1268,12 +1445,86 @@ export default function App() {
   }
 
   function handleToggleGuideNotes() {
-    if (mode === MODES.chord) return;
     setShowGuideNotes((prev) => !prev);
   }
 
   function currentChordExercise() {
     return CHORD_EXERCISES.find((item) => item.id === selectedChordExercise) ?? CHORD_EXERCISES[0];
+  }
+
+  function stopScaleLooper() {
+    if (scaleLoopTimeoutRef.current) {
+      clearTimeout(scaleLoopTimeoutRef.current);
+      scaleLoopTimeoutRef.current = null;
+    }
+    scaleLoopSequenceRef.current = [];
+    scaleLoopIndexRef.current = 0;
+    setIsScaleLoopRunning(false);
+    setLoopStepIndex(0);
+    setPreviewPulseNote(null);
+  }
+
+  function scheduleNextScaleLoopStep() {
+    const seq = scaleLoopSequenceRef.current;
+    if (!seq.length) {
+      stopScaleLooper();
+      return;
+    }
+
+    const idx = scaleLoopIndexRef.current % seq.length;
+    const midi = seq[idx];
+    const durationSec = Math.max(0.08, (60 / Math.max(30, loopBpm)) * 0.72);
+    const waitMs = Math.max(60, (60 / Math.max(30, loopBpm)) * 1000);
+
+    setLoopStepIndex(idx + 1);
+    setPreviewPulseNote(midi);
+
+    if (audioEnabled && synthRef.current) {
+      synthRef.current.triggerAttackRelease(midiToScientificNote(midi), durationSec, undefined, 0.85);
+    }
+
+    scaleLoopIndexRef.current = idx + 1;
+    scaleLoopTimeoutRef.current = setTimeout(() => {
+      scheduleNextScaleLoopStep();
+    }, waitMs);
+  }
+
+  async function startScaleLooper() {
+    if (!audioEnabled) {
+      await handleEnableAudioManually();
+    }
+
+    stopScaleLooper();
+
+    const seq = buildScalePreviewNotes(activeLoopRootName, activeLoopScaleKey, loopOctaves, loopDirection);
+    if (!seq.length) return;
+
+    setShowGuideNotes(true);
+    setPreviewExpectedNotes(seq);
+    scaleLoopSequenceRef.current = seq;
+    scaleLoopIndexRef.current = 0;
+    setIsScaleLoopRunning(true);
+    scheduleNextScaleLoopStep();
+  }
+
+  function restartScaleLooper() {
+    if (!isScaleLoopRunning) return;
+    stopScaleLooper();
+    startScaleLooper();
+  }
+
+  function handleToggleScaleLooper() {
+    if (isScaleLoopRunning) {
+      stopScaleLooper();
+    } else {
+      startScaleLooper();
+    }
+  }
+
+  function applyRecommendedScaleToTarget() {
+    if (!activeRecommendedScaleKey || chord.rootPitchClass === null) return;
+    setSelectedRoot(NOTE_NAMES_SHARP[chord.rootPitchClass]);
+    setSelectedScale(activeRecommendedScaleKey);
   }
 
   const whiteKeyWidth = 40;
@@ -1289,13 +1540,13 @@ export default function App() {
 
     const overlay =
       previewNow
-        ? "rgba(250, 204, 21, 0.70)"
+        ? "rgba(250, 204, 21, 0.75)"
         : isRoot
-        ? "rgba(239, 68, 68, 0.35)"
+        ? "rgba(239, 68, 68, 0.38)"
         : expected
-        ? "rgba(34, 197, 94, 0.45)"
+        ? "rgba(34, 197, 94, 0.52)"
         : sounding
-        ? "rgba(59, 130, 246, 0.42)"
+        ? "rgba(59, 130, 246, 0.46)"
         : held
         ? "rgba(96, 165, 250, 0.22)"
         : "transparent";
@@ -1325,13 +1576,13 @@ export default function App() {
 
     const overlay =
       previewNow
-        ? "rgba(250, 204, 21, 0.65)"
+        ? "rgba(250, 204, 21, 0.68)"
         : isRoot
-        ? "rgba(239, 68, 68, 0.32)"
+        ? "rgba(239, 68, 68, 0.34)"
         : expected
-        ? "rgba(34, 197, 94, 0.42)"
+        ? "rgba(34, 197, 94, 0.46)"
         : sounding
-        ? "rgba(56, 189, 248, 0.48)"
+        ? "rgba(56, 189, 248, 0.50)"
         : held
         ? "rgba(71, 85, 105, 0.50)"
         : "transparent";
@@ -1512,24 +1763,23 @@ export default function App() {
               <option value={MODES.chord}>Chord mode</option>
               <option value={MODES.scale}>Scale exercise</option>
               <option value={MODES.chordExercise}>Chord exercise</option>
+              <option value={MODES.combined}>Combined mode</option>
             </select>
 
-            {mode !== MODES.chord && (
-              <div style={{ marginTop: 10 }}>
-                <button
-                  onClick={handlePreviewExercise}
-                  style={{ ...styles.smallButton, backgroundColor: "#16a34a", width: "100%", marginBottom: 8 }}
-                >
-                  {previewActive ? "Playing..." : "Play Example"}
-                </button>
-                <button
-                  onClick={handleToggleGuideNotes}
-                  style={{ ...styles.smallButton, backgroundColor: "#0f766e", width: "100%" }}
-                >
-                  {showGuideNotes ? "Hide Guide" : "Show Guide"}
-                </button>
-              </div>
-            )}
+            <div style={{ marginTop: 10 }}>
+              <button
+                onClick={handlePreviewExercise}
+                style={{ ...styles.smallButton, backgroundColor: "#16a34a", width: "100%", marginBottom: 8 }}
+              >
+                {previewActive ? "Playing..." : "Play Example"}
+              </button>
+              <button
+                onClick={handleToggleGuideNotes}
+                style={{ ...styles.smallButton, backgroundColor: "#0f766e", width: "100%" }}
+              >
+                {showGuideNotes ? "Hide Guide" : "Show Guide"}
+              </button>
+            </div>
           </div>
 
           <div style={{ ...styles.readoutBox, ...styles.darkCenterCard }}>
@@ -1540,6 +1790,11 @@ export default function App() {
             </div>
             {chord.bassLabel && chord.label !== "No chord" && (
               <div style={styles.readoutSmallLight}>Bass: {chord.bassLabel}</div>
+            )}
+            {recommendedScales.length > 0 && (
+              <div style={{ ...styles.readoutSmallLight, marginTop: 10 }}>
+                Best scale: {recommendedScales[0].label}
+              </div>
             )}
           </div>
         </div>
@@ -1557,6 +1812,31 @@ export default function App() {
           <div style={styles.smallMetaPill}>Sounding {soundingNotes.length}</div>
           <div style={styles.smallMetaPill}>Last {lastMessage}</div>
         </div>
+
+        {recommendedScales.length > 0 && (
+          <div style={{ marginTop: 12 }}>
+            <div style={styles.compactLabel}>Recommended scales</div>
+            <div style={styles.noteWrap}>
+              {recommendedScales.map((item, index) => (
+                <span
+                  key={item.id}
+                  style={index === 0 ? styles.correctBadge : styles.secondaryBadge}
+                  title={item.reason}
+                >
+                  {item.label}
+                </span>
+              ))}
+            </div>
+            <div style={{ marginTop: 8, display: "flex", gap: 8, flexWrap: "wrap" }}>
+              <button
+                onClick={applyRecommendedScaleToTarget}
+                style={{ ...styles.smallButton, backgroundColor: "#2563eb" }}
+              >
+                Use best recommendation
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div style={styles.exerciseCard}>
@@ -1579,7 +1859,7 @@ export default function App() {
                 </select>
               </div>
 
-              {mode === MODES.scale && (
+              {(mode === MODES.scale || mode === MODES.combined) && (
                 <div>
                   <div style={styles.sliderLabelDark}>Scale</div>
                   <select
@@ -1661,7 +1941,7 @@ export default function App() {
                 </select>
               </div>
 
-              {mode === MODES.scale && (
+              {(mode === MODES.scale || mode === MODES.combined) && (
                 <>
                   <div>
                     <div style={styles.sliderLabelDark}>Direction</div>
@@ -1685,6 +1965,7 @@ export default function App() {
                       <option value={1}>1</option>
                       <option value={2}>2</option>
                       <option value={3}>3</option>
+                      <option value={4}>4</option>
                     </select>
                   </div>
                 </>
@@ -1708,7 +1989,7 @@ export default function App() {
           <div style={styles.infoTile}>
             <div style={styles.infoTileLabel}>Target</div>
             <div style={styles.infoTileValue}>
-              {mode === MODES.scale
+              {mode === MODES.scale || mode === MODES.combined
                 ? `${selectedRoot} ${scaleInfo.label}`
                 : mode === MODES.chordExercise
                 ? `${selectedRoot} ${currentChordExercise().label}`
@@ -1730,7 +2011,7 @@ export default function App() {
           <div style={styles.infoTile}>
             <div style={styles.infoTileLabel}>Progress</div>
             <div style={styles.infoTileValue}>
-              {mode === MODES.scale ? `${exerciseProgress} / ${expectedScaleDegrees.length}` : `${exerciseProgress}`}
+              {mode === MODES.scale || mode === MODES.combined ? `${exerciseProgress} / ${expectedScaleDegrees.length}` : `${exerciseProgress}`}
             </div>
           </div>
           <div style={styles.infoTile}>
@@ -1739,7 +2020,95 @@ export default function App() {
           </div>
         </div>
 
-        {mode === MODES.scale && (
+        {(mode === MODES.scale || mode === MODES.combined || mode === MODES.chord || mode === MODES.combined) && (
+          <div style={{ ...styles.degreeSection, marginBottom: 10 }}>
+            <div style={styles.degreeHeaderRow}>
+              <div style={styles.compactLabelDark}>Scale player</div>
+              <div style={styles.microTextDark}>
+                {useRecommendedScale && activeRecommendedScaleKey
+                  ? `Using recommendation: ${activeLoopRootName} ${SCALE_LIBRARY[activeLoopScaleKey].label}`
+                  : `Using selected target: ${activeLoopRootName} ${SCALE_LIBRARY[activeLoopScaleKey].label}`}
+              </div>
+            </div>
+
+            <div style={styles.inlineMiniGridTriple}>
+              <div>
+                <div style={styles.sliderLabelDark}>Loop BPM {loopBpm}</div>
+                <input
+                  type="range"
+                  min="40"
+                  max="220"
+                  step="1"
+                  value={loopBpm}
+                  onChange={(e) => setLoopBpm(Number(e.target.value))}
+                  style={styles.slider}
+                />
+              </div>
+              <div>
+                <div style={styles.sliderLabelDark}>Loop direction</div>
+                <select
+                  style={styles.select}
+                  value={loopDirection}
+                  onChange={(e) => setLoopDirection(e.target.value)}
+                >
+                  <option value={DIRECTIONS.up}>Up only</option>
+                  <option value={DIRECTIONS.down}>Down only</option>
+                  <option value={DIRECTIONS.upDown}>Up and down</option>
+                </select>
+              </div>
+              <div>
+                <div style={styles.sliderLabelDark}>Loop octaves</div>
+                <select
+                  style={styles.select}
+                  value={loopOctaves}
+                  onChange={(e) => setLoopOctaves(Number(e.target.value))}
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ ...styles.inlineButtonRow, marginTop: 10 }}>
+              <button
+                onClick={handleToggleScaleLooper}
+                style={{
+                  ...styles.smallButton,
+                  backgroundColor: isScaleLoopRunning ? "#dc2626" : "#16a34a",
+                }}
+              >
+                {isScaleLoopRunning ? "Stop Scale Loop" : "Start Scale Loop"}
+              </button>
+
+              <button
+                onClick={() => setUseRecommendedScale((prev) => !prev)}
+                style={{
+                  ...styles.smallButton,
+                  backgroundColor: useRecommendedScale ? "#7c3aed" : "#475569",
+                }}
+              >
+                {useRecommendedScale ? "Using Recommended Scale" : "Using Selected Scale"}
+              </button>
+            </div>
+
+            <div style={{ marginTop: 10 }} className="note-list">
+              <div style={styles.noteWrap}>
+                {loopPreviewNotes.map((note, index) => (
+                  <span
+                    key={`${note}-${index}`}
+                    style={index + 1 === loopStepIndex ? styles.correctBadge : styles.secondaryBadge}
+                  >
+                    {midiToScientificNote(note)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {(mode === MODES.scale || mode === MODES.combined) && (
           <div style={styles.degreeSection}>
             <div style={styles.degreeHeaderRow}>
               <div style={styles.compactLabelDark}>Expected degrees</div>
@@ -1789,7 +2158,7 @@ export default function App() {
           </div>
         </div>
 
-        {mode === MODES.scale && lockedScaleSequence.length > 0 && (
+        {(mode === MODES.scale || mode === MODES.combined) && lockedScaleSequence.length > 0 && (
           <div style={{ marginTop: 14 }}>
             <div style={styles.compactLabelDark}>Locked sequence</div>
             <div style={styles.noteWrap}>
@@ -1893,6 +2262,12 @@ const styles = {
   inlineMiniGrid: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
+    gap: "6px",
+    marginTop: "6px",
+  },
+  inlineMiniGridTriple: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
     gap: "6px",
     marginTop: "6px",
   },
