@@ -4,7 +4,7 @@ import * as Tone from "tone";
 const NOTE_NAMES_SHARP = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 const NOTE_NAMES_FLAT = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
 
-const STORAGE_KEY = "midi_practice_trainer_settings_v6";
+const STORAGE_KEY = "midi_practice_trainer_settings_v7";
 
 const SCALE_LIBRARY = {
   major: {
@@ -27,6 +27,36 @@ const SCALE_LIBRARY = {
     intervals: [0, 2, 3, 5, 7, 9, 11, 12],
     degrees: ["1", "2", "b3", "4", "5", "6", "7", "8"],
   },
+  dorian: {
+    label: "Dorian",
+    intervals: [0, 2, 3, 5, 7, 9, 10, 12],
+    degrees: ["1", "2", "b3", "4", "5", "6", "b7", "8"],
+  },
+  phrygian: {
+    label: "Phrygian",
+    intervals: [0, 1, 3, 5, 7, 8, 10, 12],
+    degrees: ["1", "b2", "b3", "4", "5", "b6", "b7", "8"],
+  },
+  lydian: {
+    label: "Lydian",
+    intervals: [0, 2, 4, 6, 7, 9, 11, 12],
+    degrees: ["1", "2", "3", "#4", "5", "6", "7", "8"],
+  },
+  mixolydian: {
+    label: "Mixolydian",
+    intervals: [0, 2, 4, 5, 7, 9, 10, 12],
+    degrees: ["1", "2", "3", "4", "5", "6", "b7", "8"],
+  },
+  aeolian: {
+    label: "Aeolian",
+    intervals: [0, 2, 3, 5, 7, 8, 10, 12],
+    degrees: ["1", "2", "b3", "4", "5", "b6", "b7", "8"],
+  },
+  locrian: {
+    label: "Locrian",
+    intervals: [0, 1, 3, 5, 6, 8, 10, 12],
+    degrees: ["1", "b2", "b3", "4", "b5", "b6", "b7", "8"],
+  },
   majorPentatonic: {
     label: "Major Pentatonic",
     intervals: [0, 2, 4, 7, 9, 12],
@@ -42,47 +72,143 @@ const SCALE_LIBRARY = {
     intervals: [0, 3, 5, 6, 7, 10, 12],
     degrees: ["1", "b3", "4", "#4", "5", "b7", "8"],
   },
-  dorian: {
-    label: "Dorian",
-    intervals: [0, 2, 3, 5, 7, 9, 10, 12],
-    degrees: ["1", "2", "b3", "4", "5", "6", "b7", "8"],
+  wholeTone: {
+    label: "Whole Tone",
+    intervals: [0, 2, 4, 6, 8, 10, 12],
+    degrees: ["1", "2", "3", "#4", "#5", "b7", "8"],
   },
-  mixolydian: {
-    label: "Mixolydian",
-    intervals: [0, 2, 4, 5, 7, 9, 10, 12],
-    degrees: ["1", "2", "3", "4", "5", "6", "b7", "8"],
+  diminishedHalfWhole: {
+    label: "Diminished Half Whole",
+    intervals: [0, 1, 3, 4, 6, 7, 9, 10, 12],
+    degrees: ["1", "b2", "#2", "3", "#4", "5", "6", "b7", "8"],
+  },
+  diminishedWholeHalf: {
+    label: "Diminished Whole Half",
+    intervals: [0, 2, 3, 5, 6, 8, 9, 11, 12],
+    degrees: ["1", "2", "b3", "4", "b5", "b6", "6", "7", "8"],
+  },
+  chromatic: {
+    label: "Chromatic",
+    intervals: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    degrees: ["1", "b2", "2", "b3", "3", "4", "#4", "5", "b6", "6", "b7", "7", "8"],
+  },
+  majorBebop: {
+    label: "Major Bebop",
+    intervals: [0, 2, 4, 5, 7, 8, 9, 11, 12],
+    degrees: ["1", "2", "3", "4", "5", "#5", "6", "7", "8"],
+  },
+  dominantBebop: {
+    label: "Dominant Bebop",
+    intervals: [0, 2, 4, 5, 7, 9, 10, 11, 12],
+    degrees: ["1", "2", "3", "4", "5", "6", "b7", "7", "8"],
+  },
+  minorBebop: {
+    label: "Minor Bebop",
+    intervals: [0, 2, 3, 5, 7, 8, 9, 10, 12],
+    degrees: ["1", "2", "b3", "4", "5", "b6", "6", "b7", "8"],
+  },
+  majorBlues: {
+    label: "Major Blues",
+    intervals: [0, 2, 3, 4, 7, 9, 12],
+    degrees: ["1", "2", "b3", "3", "5", "6", "8"],
+  },
+  hungarianMinor: {
+    label: "Hungarian Minor",
+    intervals: [0, 2, 3, 6, 7, 8, 11, 12],
+    degrees: ["1", "2", "b3", "#4", "5", "b6", "7", "8"],
+  },
+  doubleHarmonic: {
+    label: "Double Harmonic",
+    intervals: [0, 1, 4, 5, 7, 8, 11, 12],
+    degrees: ["1", "b2", "3", "4", "5", "b6", "7", "8"],
+  },
+  persian: {
+    label: "Persian",
+    intervals: [0, 1, 4, 5, 6, 8, 11, 12],
+    degrees: ["1", "b2", "3", "4", "b5", "b6", "7", "8"],
+  },
+  spanishGypsy: {
+    label: "Spanish Gypsy",
+    intervals: [0, 1, 4, 5, 7, 8, 10, 12],
+    degrees: ["1", "b2", "3", "4", "5", "b6", "b7", "8"],
+  },
+  lydianDominant: {
+    label: "Lydian Dominant",
+    intervals: [0, 2, 4, 6, 7, 9, 10, 12],
+    degrees: ["1", "2", "3", "#4", "5", "6", "b7", "8"],
+  },
+  altered: {
+    label: "Altered",
+    intervals: [0, 1, 3, 4, 6, 8, 10, 12],
+    degrees: ["1", "b2", "#2", "3", "b5", "#5", "b7", "8"],
   },
 };
 
 const CHORD_LIBRARY = [
-  { suffix: "", intervals: [0, 4, 7] },
-  { suffix: "m", intervals: [0, 3, 7] },
-  { suffix: "dim", intervals: [0, 3, 6] },
-  { suffix: "aug", intervals: [0, 4, 8] },
-  { suffix: "sus2", intervals: [0, 2, 7] },
-  { suffix: "sus4", intervals: [0, 5, 7] },
-  { suffix: "maj7", intervals: [0, 4, 7, 11] },
-  { suffix: "7", intervals: [0, 4, 7, 10] },
-  { suffix: "m7", intervals: [0, 3, 7, 10] },
-  { suffix: "mMaj7", intervals: [0, 3, 7, 11] },
-  { suffix: "dim7", intervals: [0, 3, 6, 9] },
-  { suffix: "m7b5", intervals: [0, 3, 6, 10] },
-  { suffix: "add9", intervals: [0, 2, 4, 7] },
-  { suffix: "madd9", intervals: [0, 2, 3, 7] },
-  { suffix: "9", intervals: [0, 2, 4, 7, 10] },
-  { suffix: "m9", intervals: [0, 2, 3, 7, 10] },
-  { suffix: "11", intervals: [0, 2, 4, 5, 7, 10] },
-  { suffix: "m11", intervals: [0, 2, 3, 5, 7, 10] },
-  { suffix: "13", intervals: [0, 2, 4, 7, 9, 10] },
-  { suffix: "m13", intervals: [0, 2, 3, 7, 9, 10] },
+  { suffix: "", intervals: [0, 4, 7], aliases: ["maj"], priority: 100, core: [0, 4, 7] },
+  { suffix: "m", intervals: [0, 3, 7], aliases: ["min"], priority: 100, core: [0, 3, 7] },
+  { suffix: "dim", intervals: [0, 3, 6], aliases: [], priority: 98, core: [0, 3, 6] },
+  { suffix: "aug", intervals: [0, 4, 8], aliases: ["+"], priority: 98, core: [0, 4, 8] },
+
+  { suffix: "sus2", intervals: [0, 2, 7], aliases: [], priority: 92, core: [0, 2, 7] },
+  { suffix: "sus4", intervals: [0, 5, 7], aliases: ["sus"], priority: 92, core: [0, 5, 7] },
+
+  { suffix: "6", intervals: [0, 4, 7, 9], aliases: [], priority: 94, core: [0, 4, 9] },
+  { suffix: "m6", intervals: [0, 3, 7, 9], aliases: [], priority: 94, core: [0, 3, 9] },
+
+  { suffix: "maj7", intervals: [0, 4, 7, 11], aliases: ["M7"], priority: 110, core: [0, 4, 11] },
+  { suffix: "7", intervals: [0, 4, 7, 10], aliases: ["dom7"], priority: 110, core: [0, 4, 10] },
+  { suffix: "m7", intervals: [0, 3, 7, 10], aliases: [], priority: 108, core: [0, 3, 10] },
+  { suffix: "mMaj7", intervals: [0, 3, 7, 11], aliases: ["mM7"], priority: 108, core: [0, 3, 11] },
+  { suffix: "dim7", intervals: [0, 3, 6, 9], aliases: [], priority: 106, core: [0, 3, 6, 9] },
+  { suffix: "m7b5", intervals: [0, 3, 6, 10], aliases: ["ø7"], priority: 106, core: [0, 3, 6, 10] },
+
+  { suffix: "add9", intervals: [0, 2, 4, 7], aliases: [], priority: 96, core: [0, 2, 4] },
+  { suffix: "madd9", intervals: [0, 2, 3, 7], aliases: [], priority: 96, core: [0, 2, 3] },
+  { suffix: "add11", intervals: [0, 4, 5, 7], aliases: [], priority: 94, core: [0, 4, 5] },
+  { suffix: "madd11", intervals: [0, 3, 5, 7], aliases: [], priority: 94, core: [0, 3, 5] },
+  { suffix: "6add9", intervals: [0, 2, 4, 7, 9], aliases: [], priority: 102, core: [0, 2, 4, 9] },
+
+  { suffix: "9", intervals: [0, 2, 4, 7, 10], aliases: [], priority: 114, core: [0, 4, 10, 2] },
+  { suffix: "m9", intervals: [0, 2, 3, 7, 10], aliases: [], priority: 112, core: [0, 3, 10, 2] },
+  { suffix: "maj9", intervals: [0, 2, 4, 7, 11], aliases: ["M9"], priority: 114, core: [0, 4, 11, 2] },
+
+  { suffix: "11", intervals: [0, 2, 4, 5, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 5] },
+  { suffix: "m11", intervals: [0, 2, 3, 5, 7, 10], aliases: [], priority: 114, core: [0, 3, 10, 5] },
+  { suffix: "maj11", intervals: [0, 2, 4, 5, 7, 11], aliases: ["M11"], priority: 116, core: [0, 4, 11, 5] },
+
+  { suffix: "13", intervals: [0, 2, 4, 7, 9, 10], aliases: [], priority: 118, core: [0, 4, 10, 9] },
+  { suffix: "m13", intervals: [0, 2, 3, 7, 9, 10], aliases: [], priority: 116, core: [0, 3, 10, 9] },
+  { suffix: "maj13", intervals: [0, 2, 4, 7, 9, 11], aliases: ["M13"], priority: 118, core: [0, 4, 11, 9] },
+
+  { suffix: "7sus4", intervals: [0, 5, 7, 10], aliases: [], priority: 108, core: [0, 5, 10] },
+  { suffix: "9sus4", intervals: [0, 2, 5, 7, 10], aliases: [], priority: 112, core: [0, 5, 10, 2] },
+
+  { suffix: "maj7#5", intervals: [0, 4, 8, 11], aliases: [], priority: 110, core: [0, 4, 8, 11] },
+  { suffix: "7#5", intervals: [0, 4, 8, 10], aliases: ["aug7"], priority: 110, core: [0, 4, 8, 10] },
+  { suffix: "7b5", intervals: [0, 4, 6, 10], aliases: [], priority: 110, core: [0, 4, 6, 10] },
+
+  { suffix: "7b9", intervals: [0, 1, 4, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 1] },
+  { suffix: "7#9", intervals: [0, 3, 4, 7, 10], aliases: [], priority: 116, core: [0, 4, 10, 3] },
+  { suffix: "7#11", intervals: [0, 2, 4, 6, 7, 10], aliases: [], priority: 118, core: [0, 4, 10, 6] },
+  { suffix: "7b13", intervals: [0, 2, 4, 7, 8, 10], aliases: [], priority: 118, core: [0, 4, 10, 8] },
+
+  { suffix: "mMaj9", intervals: [0, 2, 3, 7, 11], aliases: [], priority: 114, core: [0, 3, 11, 2] },
+  { suffix: "m6add9", intervals: [0, 2, 3, 7, 9], aliases: [], priority: 102, core: [0, 3, 9, 2] },
 ];
 
 const CHORD_EXERCISES = [
   { id: "majorTriad", label: "Major triad", intervals: [0, 4, 7] },
   { id: "minorTriad", label: "Minor triad", intervals: [0, 3, 7] },
+  { id: "diminishedTriad", label: "Diminished triad", intervals: [0, 3, 6] },
+  { id: "augmentedTriad", label: "Augmented triad", intervals: [0, 4, 8] },
   { id: "dominant7", label: "Dominant 7", intervals: [0, 4, 7, 10] },
   { id: "minor7", label: "Minor 7", intervals: [0, 3, 7, 10] },
   { id: "maj7", label: "Major 7", intervals: [0, 4, 7, 11] },
+  { id: "m7b5", label: "Half diminished", intervals: [0, 3, 6, 10] },
+  { id: "dim7", label: "Diminished 7", intervals: [0, 3, 6, 9] },
+  { id: "sus4", label: "Sus4", intervals: [0, 5, 7] },
+  { id: "add9", label: "Add9", intervals: [0, 2, 4, 7] },
 ];
 
 const MODES = {
@@ -93,6 +219,7 @@ const MODES = {
 
 const DIRECTIONS = {
   up: "up",
+  down: "down",
   upDown: "upDown",
 };
 
@@ -175,53 +302,134 @@ function formatChordName(root, suffix, preferFlats = false) {
   return `${names[root]}${suffix}`;
 }
 
+function findBassNote(activeMidiNotes) {
+  if (!activeMidiNotes.length) return null;
+  return Math.min(...activeMidiNotes);
+}
+
+function scoreChordMatch(normalizedPlayed, chordPattern, chordCore, rootPitchClass, bassPitchClass) {
+  const playedSet = new Set(normalizedPlayed);
+  const patternSet = new Set(chordPattern);
+  const coreSet = new Set(chordCore);
+
+  let matchedPattern = 0;
+  let matchedCore = 0;
+
+  patternSet.forEach((pc) => {
+    if (playedSet.has(pc)) matchedPattern += 1;
+  });
+
+  coreSet.forEach((pc) => {
+    if (playedSet.has(pc)) matchedCore += 1;
+  });
+
+  const missingPattern = chordPattern.length - matchedPattern;
+  const extraPlayed = normalizedPlayed.length - matchedPattern;
+  const missingCore = chordCore.length - matchedCore;
+
+  let score = 0;
+  score += matchedPattern * 14;
+  score += matchedCore * 18;
+  score -= missingPattern * 7;
+  score -= missingCore * 12;
+  score -= Math.max(0, extraPlayed) * 4;
+
+  if (playedSet.has(0)) score += 8;
+  if (bassPitchClass !== null && bassPitchClass === rootPitchClass) score += 6;
+  if (normalizedPlayed.length === chordPattern.length) score += 5;
+  if (matchedPattern === chordPattern.length) score += 12;
+
+  return score;
+}
+
 function detectChord(activeMidiNotes) {
   if (!activeMidiNotes.length) {
-    return { label: "No chord", alternates: [], rootPitchClass: null };
+    return {
+      label: "No chord",
+      alternates: [],
+      rootPitchClass: null,
+      bassLabel: null,
+      quality: null,
+    };
   }
 
   const pitchClasses = normalizePitchClasses(activeMidiNotes);
-  const matches = [];
+  const bassMidi = findBassNote(activeMidiNotes);
+  const bassPitchClass = bassMidi !== null ? midiToPitchClass(bassMidi) : null;
+
+  const exactMatches = [];
+  const scoredMatches = [];
 
   for (let root = 0; root < 12; root += 1) {
     const normalized = rotateToRoot(pitchClasses, root);
 
     for (const chord of CHORD_LIBRARY) {
       const pattern = [...new Set(chord.intervals)].sort((a, b) => a - b);
+      const core = [...new Set(chord.core || chord.intervals)].sort((a, b) => a - b);
+
       if (arraysEqual(normalized, pattern)) {
-        matches.push({
+        exactMatches.push({
           rootPitchClass: root,
-          sharpName: formatChordName(root, chord.suffix, false),
-          flatName: formatChordName(root, chord.suffix, true),
+          suffix: chord.suffix,
+          score: 1000 + (chord.priority || 0),
         });
+      } else {
+        const score = scoreChordMatch(normalized, pattern, core, root, bassPitchClass);
+        if (score >= 20) {
+          scoredMatches.push({
+            rootPitchClass: root,
+            suffix: chord.suffix,
+            score: score + (chord.priority || 0),
+          });
+        }
       }
     }
   }
 
-  if (!matches.length) {
+  const allMatches = exactMatches.length ? exactMatches : scoredMatches;
+
+  if (!allMatches.length) {
     return {
       label: "Unknown voicing",
       alternates: [],
       rootPitchClass: activeMidiNotes.length ? midiToPitchClass(Math.min(...activeMidiNotes)) : null,
+      bassLabel: bassMidi !== null ? midiToScientificNote(bassMidi) : null,
+      quality: null,
     };
   }
+
+  allMatches.sort((a, b) => b.score - a.score);
 
   const unique = [];
   const seen = new Set();
 
-  matches.forEach((match) => {
-    [match.sharpName, match.flatName].forEach((name) => {
+  allMatches.forEach((match) => {
+    const sharpName = formatChordName(match.rootPitchClass, match.suffix, false);
+    const flatName = formatChordName(match.rootPitchClass, match.suffix, true);
+
+    [sharpName, flatName].forEach((name) => {
       if (!seen.has(name)) {
         seen.add(name);
-        unique.push({ name, rootPitchClass: match.rootPitchClass });
+        unique.push({
+          name,
+          rootPitchClass: match.rootPitchClass,
+        });
       }
     });
   });
 
+  const best = unique[0];
+  const bassName = bassMidi !== null ? midiToNoteName(bassMidi) : null;
+  const rootName = best ? midiToNoteName(best.rootPitchClass) : null;
+  const slashNeeded = bassName && rootName && bassName !== rootName;
+  const finalLabel = slashNeeded ? `${best.name}/${bassName}` : best.name;
+
   return {
-    label: unique[0]?.name || "No chord",
-    alternates: unique.slice(1, 4).map((item) => item.name),
-    rootPitchClass: unique[0]?.rootPitchClass ?? null,
+    label: finalLabel || "Unknown voicing",
+    alternates: unique.slice(1, 5).map((item) => item.name),
+    rootPitchClass: best?.rootPitchClass ?? null,
+    bassLabel: bassMidi !== null ? midiToScientificNote(bassMidi) : null,
+    quality: best?.name ?? null,
   };
 }
 
@@ -238,6 +446,10 @@ function buildScaleIntervalsForOctaves(baseIntervals, octaves, direction) {
     return ascent;
   }
 
+  if (direction === DIRECTIONS.down) {
+    return [...ascent].reverse();
+  }
+
   const descent = [...ascent].slice(0, -1).reverse();
   return [...ascent, ...descent];
 }
@@ -252,6 +464,10 @@ function buildScaleDegreesForOctaves(baseDegrees, octaves, direction) {
 
   if (direction === DIRECTIONS.up) {
     return ascent;
+  }
+
+  if (direction === DIRECTIONS.down) {
+    return [...ascent].reverse();
   }
 
   const descent = [...ascent].slice(0, -1).reverse();
@@ -442,7 +658,7 @@ export default function App() {
         })
       );
     } catch {
-      // ignore
+      //
     }
   }, [
     selectedInputId,
@@ -755,7 +971,7 @@ export default function App() {
       await Tone.start();
       setAudioEnabled(true);
     } catch {
-      // ignore
+      //
     }
   }
 
@@ -1322,6 +1538,9 @@ export default function App() {
             <div style={styles.readoutSmallLight}>
               {chord.alternates.length ? `Also: ${chord.alternates.join("  ·  ")}` : "Play a chord"}
             </div>
+            {chord.bassLabel && chord.label !== "No chord" && (
+              <div style={styles.readoutSmallLight}>Bass: {chord.bassLabel}</div>
+            )}
           </div>
         </div>
 
@@ -1452,6 +1671,7 @@ export default function App() {
                       onChange={(e) => setScaleDirection(e.target.value)}
                     >
                       <option value={DIRECTIONS.up}>Up only</option>
+                      <option value={DIRECTIONS.down}>Down only</option>
                       <option value={DIRECTIONS.upDown}>Up and down</option>
                     </select>
                   </div>
@@ -1718,6 +1938,7 @@ const styles = {
     padding: "9px 10px",
     fontSize: "13px",
     fontWeight: 800,
+    cursor: "pointer",
   },
   actionButton: {
     border: "none",
@@ -1727,6 +1948,7 @@ const styles = {
     fontSize: "15px",
     fontWeight: 800,
     minWidth: "140px",
+    cursor: "pointer",
   },
   accentRow: {
     display: "flex",
